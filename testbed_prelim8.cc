@@ -117,8 +117,8 @@ int main (int argc, char *argv[])
 
   // Install on/off app on all right side nodes
   OnOffHelper clientHelper ("ns3::TcpSocketFactory", Address ());
-  clientHelper.SetAttribute ("OnTime", RandomVariableValue (UniformVariable (0, 1)));
-  clientHelper.SetAttribute ("OffTime", RandomVariableValue (UniformVariable (0, 1)));
+  clientHelper.SetAttribute ("OnTime", RandomVariableValue (ParetoVariable (0, 1)));
+  clientHelper.SetAttribute ("OffTime", RandomVariableValue (ParetoVariable (0, 1)));
   Address sinkLocalAddress (InetSocketAddress (Ipv4Address::GetAny (), port));
   PacketSinkHelper packetSinkHelper ("ns3::TcpSocketFactory", sinkLocalAddress);
   ApplicationContainer sinkApps; 
