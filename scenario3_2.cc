@@ -736,18 +736,35 @@ Ipv4InterfaceContainer interfaces_r3_s31 = address_r3_s31.Assign (devices_r3_s31
 Ipv4InterfaceContainer interfaces_r3_s32 = address_r3_s32.Assign (devices_r3_s32);
 Ipv4InterfaceContainer interfaces_r3_s33 = address_r3_s33.Assign (devices_r3_s33);
 
-//Ptr<Node> ue11 = ssNodes1.Get(0);
+Ptr<Node> ue11 = ssNodes1.Get(0);
 Ptr<Node> ue12 = ssNodes1.Get(1);
 Ptr<Node> ue13 = ssNodes1.Get(2);
-//Ptr<Node> ue21 = ssNodes2.Get(0);
+Ptr<Node> ue21 = ssNodes2.Get(0);
 Ptr<Node> ue22 = ssNodes2.Get(1);
 Ptr<Node> ue23 = ssNodes2.Get(2);
-//Ptr<Node> ue31 = ssNodes3.Get(0);
+Ptr<Node> ue31 = ssNodes3.Get(0);
 Ptr<Node> ue32 = ssNodes3.Get(1);
 Ptr<Node> ue33 = ssNodes3.Get(2);
 
-
+double t_on =1.5004;
+double t_off = 1.032;
 //voice applications
+  NS_LOG_INFO ("Adding voice traffic: s11->ue11");
+  OnOffHelper onoff_s11 ("ns3::UdpSocketFactory", Address (InetSocketAddress (SSinterfaces1.GetAddress (0), 100)));
+  onoff_s11.SetAttribute ("OnTime", RandomVariableValue (ExponentialVariable (t_on)));
+  onoff_s11.SetAttribute ("OffTime", RandomVariableValue (ExponentialVariable (t_off)));
+  onoff_s11.SetAttribute ("PacketSize", StringValue ("512"));
+  onoff_s11.SetAttribute ("DataRate", StringValue ("64kb/s"));
+
+  ApplicationContainer senderapps_s11 = onoff_s11.Install (s11);
+  senderapps_s11.Start (Seconds (0.1));
+  senderapps_s11.Stop (Seconds (20.0));
+
+  // Create a packet sink to receive these packets
+  PacketSinkHelper sink_ue11 ("ns3::UdpSocketFactory",InetSocketAddress (Ipv4Address::GetAny (), 100));
+  ApplicationContainer clientapps_ue11 = sink_ue11.Install (ue11);
+  clientapps_ue11.Start (Seconds (0.0));
+
 /*NS_LOG_INFO ("Adding voice traffic: s11->ue11");
 uint16_t sinkPort_ue11 = 100;
 Address sinkAddress_ue11 (InetSocketAddress (SSinterfaces1.GetAddress (0), sinkPort_ue11));
