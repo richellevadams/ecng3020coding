@@ -765,6 +765,38 @@ double t_off = 1.032;
   ApplicationContainer clientapps_ue11 = sink_ue11.Install (ue11);
   clientapps_ue11.Start (Seconds (0.0));
 
+  NS_LOG_INFO ("Adding voice traffic: s21->ue21");
+  OnOffHelper onoff_s21 ("ns3::UdpSocketFactory", Address (InetSocketAddress (SSinterfaces2.GetAddress (0), 100)));
+  onoff_s21.SetAttribute ("OnTime", RandomVariableValue (ExponentialVariable (t_on)));
+  onoff_s21.SetAttribute ("OffTime", RandomVariableValue (ExponentialVariable (t_off)));
+  onoff_s21.SetAttribute ("PacketSize", StringValue ("512"));
+  onoff_s21.SetAttribute ("DataRate", StringValue ("64kb/s"));
+
+  ApplicationContainer senderapps_s21 = onoff_s21.Install (s21);
+  senderapps_s21.Start (Seconds (0.1));
+  senderapps_s21.Stop (Seconds (20.0));
+
+  // Create a packet sink to receive these packets
+  PacketSinkHelper sink_ue21 ("ns3::UdpSocketFactory",InetSocketAddress (Ipv4Address::GetAny (), 100));
+  ApplicationContainer clientapps_ue21 = sink_ue21.Install (ue21);
+  clientapps_ue21.Start (Seconds (0.0));
+
+  NS_LOG_INFO ("Adding voice traffic: s31->ue31");
+  OnOffHelper onoff_s31 ("ns3::UdpSocketFactory", Address (InetSocketAddress (SSinterfaces3.GetAddress (0), 100)));
+  onoff_s31.SetAttribute ("OnTime", RandomVariableValue (ExponentialVariable (t_on)));
+  onoff_s31.SetAttribute ("OffTime", RandomVariableValue (ExponentialVariable (t_off)));
+  onoff_s31.SetAttribute ("PacketSize", StringValue ("512"));
+  onoff_s31.SetAttribute ("DataRate", StringValue ("64kb/s"));
+
+  ApplicationContainer senderapps_s31 = onoff_s31.Install (s31);
+  senderapps_s31.Start (Seconds (0.1));
+  senderapps_s31.Stop (Seconds (20.0));
+
+  // Create a packet sink to receive these packets
+  PacketSinkHelper sink_ue31 ("ns3::UdpSocketFactory",InetSocketAddress (Ipv4Address::GetAny (), 100));
+  ApplicationContainer clientapps_ue31 = sink_ue31.Install (ue31);
+  clientapps_ue31.Start (Seconds (0.0));
+
 /*NS_LOG_INFO ("Adding voice traffic: s11->ue11");
 uint16_t sinkPort_ue11 = 100;
 Address sinkAddress_ue11 (InetSocketAddress (SSinterfaces1.GetAddress (0), sinkPort_ue11));
