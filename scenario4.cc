@@ -446,13 +446,13 @@ clientApps_s32.Stop (Seconds (20));
 
   //Left-to-Right Direction
   Ptr<Ipv4StaticRouting> s11StaticRouting = ipv4RoutingHelper.GetStaticRouting (s11->GetObject<Ipv4> ());
-  s11StaticRouting->AddNetworkRouteTo (Ipv4Address ("20.1.1.0"), Ipv4Mask ("255.255.255.0"), Ipv4Address ("30.0.10.1"), 1);
+  s11StaticRouting->AddNetworkRouteTo (Ipv4Address ("20.1.1.0"), Ipv4Mask ("255.255.255.0"), interfaces_r1_s11.GetAddress(1), 1);
 
   Ptr<Ipv4StaticRouting> s12StaticRouting = ipv4RoutingHelper.GetStaticRouting (s12->GetObject<Ipv4> ());
-  s12StaticRouting->AddNetworkRouteTo (Ipv4Address ("20.1.1.0"), Ipv4Mask ("255.255.255.0"), Ipv4Address ("30.0.10.3"), 1);
+  s12StaticRouting->AddNetworkRouteTo (Ipv4Address ("20.1.1.0"), Ipv4Mask ("255.255.255.0"), interfaces_r1_s12.GetAddress(1), 1);
 
   Ptr<Ipv4StaticRouting> s13StaticRouting = ipv4RoutingHelper.GetStaticRouting (s13->GetObject<Ipv4> ());
-  s13StaticRouting->AddNetworkRouteTo (Ipv4Address ("20.1.1.0"), Ipv4Mask ("255.255.255.0"), Ipv4Address ("30.0.10.5"), 1);
+  s13StaticRouting->AddNetworkRouteTo (Ipv4Address ("20.1.1.0"), Ipv4Mask ("255.255.255.0"), interfaces_r1_s13.GetAddress(1), 1);
 
   Ptr<Ipv4StaticRouting> r1StaticRouting = ipv4RoutingHelper.GetStaticRouting (r1->GetObject<Ipv4> ());
   r1StaticRouting->AddNetworkRouteTo (Ipv4Address ("20.1.1.0"), Ipv4Mask ("255.255.255.0"), Ipv4Address ("30.0.7.1"), 1);
